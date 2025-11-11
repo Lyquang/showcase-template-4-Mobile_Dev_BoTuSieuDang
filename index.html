@@ -1,122 +1,988 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookinton - Ứng Dụng Đặt Sân Cầu Lông Thông Minh</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <title>Bookinton – Smart Badminton Court Booking</title>
+  <link rel="stylesheet" href="css/skilline.css" />
 </head>
-<body class="bg-gray-50 text-gray-800">
-  <!-- Header -->
-  <header class="bg-indigo-600 text-white text-center py-10">
-    <h1 class="text-4xl font-bold">🏸 Bookinton – Ứng Dụng Đặt Sân Cầu Lông Thông Minh</h1>
-    <p class="mt-2 text-lg italic">“Reserve fast. Play smart.”</p>
-  </header>
 
-  <!-- Tổng quan dự án -->
-  <section class="max-w-5xl mx-auto p-6 bg-white mt-10 rounded-xl shadow" data-aos="fade-up">
-    <h2 class="text-2xl font-bold text-indigo-700 mb-4">📘 Tổng Quan Dự Án</h2>
-    <p><strong>Tên dự án:</strong> Bookinton – Ứng dụng đặt sân cầu lông thông minh</p>
-    <p class="mt-2"><strong>Mô tả:</strong> Bookinton là ứng dụng di động giúp người chơi cầu lông tìm sân trống theo thời gian thực, đặt sân trong vài phút và quản lý lịch cá nhân thuận tiện. 
-      Mục tiêu của dự án là mang đến trải nghiệm nhanh – minh bạch – đáng tin cậy, đồng thời xây nền cho các tính năng mở rộng như đánh giá sân, thanh toán tích hợp và nhắc lịch thông minh.</p>
-  </section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const steps = document.querySelectorAll(".flow-step");
 
-  <!-- Mục tiêu dự án -->
-  <section class="max-w-5xl mx-auto p-6 bg-white mt-6 rounded-xl shadow" data-aos="fade-up">
-    <h2 class="text-2xl font-bold text-indigo-700 mb-4">🎯 Mục Tiêu Của Bookinton</h2>
-    <ul class="list-disc list-inside space-y-2">
-      <li>Xem lịch trống của các sân cầu lông theo thời gian thực trong khu vực.</li>
-      <li>Đặt sân nhanh, thao tác đơn giản chỉ trong chưa đầy 2 phút.</li>
-      <li>Xem và chia sẻ đánh giá, bình luận, hình ảnh về chất lượng sân.</li>
-      <li>Nhắc nhở lịch đặt sân hàng tuần.</li>
-      <li>Xem lại lịch sử đặt sân cá nhân.</li>
-      <li>Thanh toán bằng nhiều phương thức tiện lợi được tích hợp ngay trên ứng dụng.</li>
-    </ul>
-  </section>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target); // chỉ chạy 1 lần
+        }
+      });
+    }, { threshold: 0.3 });
 
-  <!-- Công nghệ sử dụng -->
-  <section class="max-w-5xl mx-auto p-6 bg-white mt-6 rounded-xl shadow" data-aos="fade-up">
-    <h2 class="text-2xl font-bold text-indigo-700 mb-4">⚙️ Thông Tin Kỹ Thuật</h2>
-    <div class="overflow-x-auto">
-      <table class="min-w-full border border-gray-300 text-left">
-        <thead class="bg-indigo-100">
-          <tr>
-            <th class="py-2 px-4">Thành Phần</th>
-            <th class="py-2 px-4">Mô Tả</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="py-2 px-4">📱 Nền tảng</td><td class="py-2 px-4">React Native (TypeScript)</td></tr>
-          <tr><td class="py-2 px-4">⚙️ Backend</td><td class="py-2 px-4">Java Spring Boot 3 (Web, Security, JPA), Flyway migration</td></tr>
-          <tr><td class="py-2 px-4">💾 Database</td><td class="py-2 px-4">MySQL</td></tr>
-          <tr><td class="py-2 px-4">💳 Payments</td><td class="py-2 px-4">VNPay (sandbox) ở mốc MVP Release</td></tr>
-          <tr><td class="py-2 px-4">🗺️ API tích hợp</td><td class="py-2 px-4">Google Maps API (xác định vị trí sân & chỉ đường)</td></tr>
-          <tr><td class="py-2 px-4">🎨 Thiết kế</td><td class="py-2 px-4">Figma – giao diện sáng, năng động, thể thao</td></tr>
-        </tbody>
-      </table>
+    steps.forEach(step => observer.observe(step));
+  });
+</script>
+
+<body>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <!-- chữ cực to phía sau -->
+    <div class="hero-word">BOOKINTON</div>
+
+    <!-- Sân cầu lông 3D phía sau điện thoại -->
+    <div class="hero-court"></div>
+
+    <!-- content chính: chip + phone + caption -->
+    <div class="hero-foreground">
+      <div class="hero-chip-row">
+        <span class="hero-chip">Mobile App</span>
+        <span class="hero-chip">Badminton · UX/UI</span>
+      </div>
+
+      <!-- Điện thoại -->
+      <div class="hero-phone">
+        <div class="phone-frame">
+          <img src="img/leechonwei2.png" alt="Bookinton App" class="phone-screen">
+        </div>
+      </div>
+
+
+      <!-- Tên & slogan -->
+      <div class="hero-caption">
+        <h1 class="hero-title">Bookinton</h1>
+        <p class="hero-subtitle">Phục vụ nhanh chóng, cầu lông thông minh</p>
+      </div>
     </div>
   </section>
 
-  <!-- Lộ trình phát triển -->
-  <section class="max-w-5xl mx-auto p-6 bg-white mt-6 rounded-xl shadow" data-aos="fade-up">
-    <h2 class="text-2xl font-bold text-indigo-700 mb-4">🛠️ Lộ Trình Phát Triển</h2>
-    <div class="overflow-x-auto">
-      <table class="min-w-full border border-gray-300 text-left">
-        <thead class="bg-indigo-100">
-          <tr>
-            <th class="py-2 px-4">Giai Đoạn</th>
-            <th class="py-2 px-4">Nội Dung</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="py-2 px-4">1️⃣ MVP</td><td class="py-2 px-4">Tạo tính năng xem sân, tra lịch trống, đặt sân cơ bản.</td></tr>
-          <tr><td class="py-2 px-4">2️⃣ Bản Beta</td><td class="py-2 px-4">Thêm chức năng đánh giá, bình luận, xác nhận thanh toán.</td></tr>
-          <tr><td class="py-2 px-4">3️⃣ Hoàn thiện</td><td class="py-2 px-4">Cải thiện giao diện, tối ưu tốc độ đặt sân, tích hợp bản đồ.</td></tr>
-          <tr><td class="py-2 px-4">4️⃣ Mở rộng</td><td class="py-2 px-4">Triển khai hệ thống gợi ý thông minh (AI-based suggestion).</td></tr>
-        </tbody>
-      </table>
+
+
+  <!-- ABOUT SECTION -->
+  <!-- ABOUT SECTION -->
+  <section class="about" id="about">
+    <div class="about-inner">
+
+      <!-- Header -->
+      <header class="about-header">
+        <p class="about-eyebrow">01 Tổng quan dự án</p>
+        <h2>Bookinton – Ứng dụng đặt sân cầu lông thông minh</h2>
+        <p class="about-lead">
+          <span class="highlight">Bookinton</span> giúp người chơi cầu lông
+          <span class="highlight">tìm – đặt – quản lý sân</span> trong vài phút.
+          Ứng dụng hiển thị lịch trống theo thời gian thực, hỗ trợ thanh toán tích hợp
+          và nhắc lịch chơi định kỳ, phù hợp cả nhóm bạn lẫn người chơi chuyên.
+        </p>
+      </header>
+
+      <!-- Tagline + stats -->
+      <div class="about-hero-row">
+        <div class="about-tagline">
+          <h3>Phục vụ nhanh chóng cầu lông thông minh</h3>
+          <p>
+            Mục tiêu của Bookinton là mang đến trải nghiệm <strong>nhanh – minh bạch – đáng tin cậy</strong>,
+            đồng thời xây nền cho các tính năng mở rộng như đánh giá sân, nhắc lịch thông minh
+            và hệ thống gợi ý dựa trên hành vi chơi của người dùng.
+          </p>
+        </div>
+
+        <div class="about-stats">
+          <div class="about-stat">
+            <strong>&lt; 2 phút</strong>
+            <span>Hoàn thành một lần đặt sân</span>
+          </div>
+          <div class="about-stat">
+            <strong>Real-time</strong>
+            <span>Lịch trống sân theo khu vực</span>
+          </div>
+          <div class="about-stat">
+            <strong>All-in-one</strong>
+            <span>Đặt sân · Thanh toán · Nhắc lịch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goals / Features -->
+      <div class="about-grid">
+        <article class="about-card">
+          <h4>Mục tiêu sản phẩm</h4>
+          <ul>
+            <li>Giảm tối đa thời gian tìm &amp; đặt sân cho người chơi.</li>
+            <li>Giúp chủ sân quản lý lịch &amp; lấp đầy khung giờ trống hiệu quả hơn.</li>
+            <li>Xây dựng cộng đồng cầu lông có thể review, chia sẻ trải nghiệm sân.</li>
+            <li>Tạo nền tảng mở rộng cho gợi ý sân, gợi ý đối thủ và giải đấu trong tương lai.</li>
+          </ul>
+        </article>
+
+        <article class="about-card">
+          <h4>Tính năng cốt lõi</h4>
+          <ul class="about-columns">
+            <li>Xem lịch trống sân theo thời gian thực.</li>
+            <li>Đặt sân nhanh trong dưới 2 phút.</li>
+            <li>Lưu &amp; xem lại lịch sử đặt sân cá nhân.</li>
+            <li>Đánh giá, bình luận, xem hình ảnh sân.</li>
+            <li>Nhắc lịch chơi hàng tuần, đồng bộ lịch cá nhân.</li>
+            <li>Thanh toán đa phương thức ngay trên app (VNPay – sandbox ở MVP).</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Tech + roadmap + team -->
+      <div class="about-grid about-grid-secondary">
+        <article class="about-card">
+          <h4>Tech stack đề xuất</h4>
+          <div class="about-chips">
+            <span class="chip">React Native · TypeScript</span>
+            <span class="chip">Spring Boot 3 · JPA · Security</span>
+            <span class="chip">MySQL · Flyway migration</span>
+            <span class="chip">VNPay (sandbox)</span>
+            <span class="chip">Google Maps API</span>
+            <span class="chip">Figma design system</span>
+          </div>
+
+          <h4 class="about-subtitle">Roadmap</h4>
+          <ul class="about-roadmap">
+            <li><strong>1️⃣ MVP:</strong> Xem danh sách sân, lịch trống, đặt sân cơ bản.</li>
+            <li><strong>2️⃣ Beta:</strong> Đánh giá &amp; bình luận sân, xác nhận thanh toán.</li>
+            <li><strong>3️⃣ Hoàn thiện:</strong> Tối ưu tốc độ đặt sân, tích hợp bản đồ chi tiết.</li>
+            <li><strong>4️⃣ Mở rộng:</strong> Hệ thống gợi ý thông minh (AI-based suggestion).</li>
+          </ul>
+        </article>
+
+        <article class="about-card">
+          <h4>Nhóm phát triển</h4>
+          <div class="team-list">
+            <div class="team-item">
+              <p class="team-role">Frontend Developer</p>
+              <p class="team-name">Phạm Thanh Phong</p>
+              <p class="team-note">Thiết kế giao diện &amp; luồng trải nghiệm.</p>
+            </div>
+            <div class="team-item">
+              <p class="team-role">Backend Developer</p>
+              <p class="team-name">Võ Lê Anh Nghĩa</p>
+              <p class="team-note">Xây dựng API, quản lý dữ liệu sân.</p>
+            </div>
+            <div class="team-item">
+              <p class="team-role">Frontend Developer</p>
+              <p class="team-name">Lý Thanh Nhật Quang</p>
+              <p class="team-note">Thiết kế UI &amp; tối ưu thao tác đặt sân.</p>
+            </div>
+            <div class="team-item">
+              <p class="team-role">Backend Developer</p>
+              <p class="team-name">Nguyễn Bá Việt Quang</p>
+              <p class="team-note">Tối ưu hiệu năng, bảo mật &amp; tích hợp thanh toán.</p>
+            </div>
+          </div>
+
+          <h4 class="about-subtitle">Tầm nhìn</h4>
+          <p class="about-vision">
+            Bookinton không chỉ là app đặt sân, mà là <strong>cộng đồng cầu lông</strong>,
+            nơi mọi người dễ dàng kết nối, chia sẻ và duy trì thói quen chơi thể thao
+            một cách hiện đại, thông minh và tiện lợi nhất.
+          </p>
+        </article>
+      </div>
+
     </div>
   </section>
 
-  <!-- Thành viên nhóm -->
-  <section class="max-w-5xl mx-auto p-6 bg-white mt-6 rounded-xl shadow" data-aos="fade-up">
-    <h2 class="text-2xl font-bold text-indigo-700 mb-4">👥 Nhóm Phát Triển</h2>
-    <table class="min-w-full border border-gray-300">
-      <thead class="bg-indigo-100">
-        <tr>
-          <th class="py-2 px-4">Vai Trò</th>
-          <th class="py-2 px-4">Thành Viên</th>
-          <th class="py-2 px-4">Nhiệm Vụ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="py-2 px-4">Frontend Developer</td><td class="py-2 px-4">Phạm Thanh Phong</td><td class="py-2 px-4">Thiết kế giao diện và luồng trải nghiệm.</td></tr>
-        <tr><td class="py-2 px-4">Backend Developer</td><td class="py-2 px-4">Võ Lê Anh Nghĩa</td><td class="py-2 px-4">Xây dựng API, quản lý dữ liệu sân.</td></tr>
-        <tr><td class="py-2 px-4">Frontend Developer</td><td class="py-2 px-4">Lý Thanh Nhật Quang</td><td class="py-2 px-4">Thiết kế giao diện và luồng trải nghiệm.</td></tr>
-        <tr><td class="py-2 px-4">Backend Developer</td><td class="py-2 px-4">Nguyễn Bá Việt Quang</td><td class="py-2 px-4">Xây dựng API, quản lý dữ liệu sân.</td></tr>
-      </tbody>
-    </table>
+
+  <!-- BOOKING SECTION -->
+  <section class="booking">
+    <h2>ĐẶT SÂN CẦU LÔNG CHO RIÊNG BẠN!</h2>
+
+    <div class="booking-wrapper">
+      <!-- GOAL (trái) -->
+      <div class="goal">
+        <h3>/ Mục tiêu</h3>
+        <p>
+          Mục tiêu là tạo ra trải nghiệm đặt sân cầu lông cảm giác “nhanh như chat với team” –
+          giảm tối đa thao tác thừa, hiển thị lịch trống rõ ràng và cho phép người dùng khóa
+          khung giờ yêu thích chỉ trong vài bước.
+        </p>
+      </div>
+
+      <!-- 3 điện thoại ở giữa -->
+      <div class="phones">
+        <img src="img/leechonwei.png" alt="Browse courts" class="phone phone-left" />
+        <img src="img/booking.png" alt="Court details" class="phone phone-center" />
+        <img src="img/booking2.png" alt="Booking confirmation" class="phone phone-right" />
+      </div>
+
+      <!-- SOLUTION (phải) -->
+      <div class="solution">
+        <h3>/ Giải pháp</h3>
+        <p>
+          Bookinton cung cấp trải nghiệm đặt sân liền mạch với bộ lọc thời gian thực, bản đồ sân,
+          nhắc lịch tự động và thanh toán tích hợp. Toàn bộ hành trình từ chọn sân, chọn giờ, chia sẻ với
+          bạn chơi đến xác nhận thanh toán đều được thiết kế rõ ràng, trực quan cho người dùng mới lẫn
+          người chơi thường xuyên.
+        </p>
+      </div>
+    </div>
   </section>
 
-  <!-- Tầm nhìn -->
-  <section class="max-w-5xl mx-auto p-6 bg-white mt-6 rounded-xl shadow text-center" data-aos="fade-up">
-    <h2 class="text-2xl font-bold text-indigo-700 mb-4">🌟 Tầm Nhìn</h2>
-    <p class="text-lg leading-relaxed max-w-3xl mx-auto">
-      Bookinton không chỉ là ứng dụng đặt sân, mà còn là cầu nối giữa cộng đồng cầu lông, 
-      nơi người chơi dễ dàng kết nối, chia sẻ và tận hưởng niềm vui thể thao 
-      một cách hiện đại, thông minh và tiện lợi nhất.
+  <!-- DESIGN PROCESS SECTION -->
+  <section class="design-process">
+    <h2>02. Quy trình thiết kế</h2>
+    <div class="process-steps">
+      <div class="step">
+        <h3>Phân tích Trải nghiệm giao diện</h3>
+        <p class="duration">14 ngày</p>
+        <ul>
+          <li>Thu thập brief & kỳ vọng của nhóm phát triển</li>
+          <li>Phân tích hành vi người chơi cầu lông & chủ sân</li>
+          <li>Xác định JTBD: “Tìm sân trống nhanh cho cả team”</li>
+          <li>Vẽ user flow từ tìm sân tới thanh toán</li>
+          <li>Lên Customer Journey Map cho MVP</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Nghiên cứu Trải nghiệm giao diện</h3>
+        <p class="duration">14 ngày</p>
+        <ul>
+          <li>Phỏng vấn người chơi & chủ sân hiện tại</li>
+          <li>So sánh với các ứng dụng đặt sân / đặt dịch vụ khác</li>
+          <li>Xây dựng information architecture cho Bookinton</li>
+          <li>Thiết kế cấu trúc màn hình: Home, Court, Booking, Wallet</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Bản phác thảo</h3>
+        <p class="duration">2 ngày</p>
+        <ul>
+          <li>Wireframe cho flow xem lịch trống & đặt sân</li>
+          <li>Prototype tương tác cho thanh toán VNPay (sandbox)</li>
+          <li>Prototype nhắc lịch & lịch sử đặt sân</li>
+          <li>Chuẩn hóa requirement cho team backend</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Thiết kế giao diện</h3>
+        <p class="duration">7 ngày</p>
+        <ul>
+          <li>Thiết kế concept giao diện năng động, thể thao</li>
+          <li>Xây dựng design system: màu, typography, component</li>
+          <li>Thiết kế màn hình cho MVP & bản Beta</li>
+          <li>Chuẩn bị asset giao cho dev (React Native)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h3>Kiểm thử</h3>
+        <p class="duration">1 ngày</p>
+        <ul>
+          <li>Test luồng đặt sân end-to-end</li>
+          <li>Kiểm tra lỗi UX trong quá trình chọn giờ, chọn sân</li>
+          <li>Test tích hợp thanh toán VNPay (sandbox)</li>
+          <li>Gom feedback cho bản Beta</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- USER PERSONAS SECTION -->
+  <section class="user-personas">
+    <h2>03. Chân dung người dùng</h2>
+    <p class="intro">
+      Để tạo trải nghiệm đặt sân <span>nhanh và trực quan</span>,
+      chúng tôi xác định các nhóm người dùng chính dựa trên
+      <span>thói quen chơi cầu lông, mục tiêu và khó khăn khi đặt sân</span>.
     </p>
+
+    <div class="personas-wrapper">
+      <!-- Persona 1 -->
+      <div class="persona">
+        <div class="avatar">
+          <img src="img/doraemon.png" alt="Minh Nguyen" />
+        </div>
+        <div class="persona-info">
+          <h3>Minh Nguyễn</h3>
+          <p class="role">Nhân viên văn phòng – Đội trưởng đội cầu lông<br>29 tuổi</p>
+          <h4>Goal</h4>
+          <p>
+            Tìm sân trống cố định cho team 4–6 người sau giờ làm, đặt sân thật nhanh và có thể
+            chia sẻ lịch cho mọi người.
+          </p>
+          <h4>Pain points</h4>
+          <ul>
+            <li>Phải gọi điện nhiều sân mới biết giờ trống</li>
+            <li>Khó giữ được cùng một khung giờ mỗi tuần</li>
+            <li>Không có nơi tập trung lịch sử đặt sân của cả nhóm</li>
+            <li>Thường quên nhắc mọi người trước giờ chơi</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Persona 2 -->
+      <div class="persona">
+        <div class="avatar">
+          <img src="img/shizuka.webp" alt="Lan Pham" />
+        </div>
+        <div class="persona-info">
+          <h3>Lan Phạm</h3>
+          <p class="role">Chủ sân cầu lông<br>34 tuổi</p>
+          <h4>Goal</h4>
+          <p>
+            Tối ưu tỉ lệ lấp đầy sân, quản lý lịch đặt sân gọn gàng và hạn chế đặt ảo/hủy phút chót.
+          </p>
+          <h4>Pain points</h4>
+          <ul>
+            <li>Khó kiểm tra nhanh các khung giờ còn trống</li>
+            <li>Thông tin đặt sân phân tán (Facebook, Zalo, gọi điện)</li>
+            <li>Khó theo dõi khách quen và lịch thanh toán</li>
+            <li>Thiếu công cụ để người chơi đánh giá & phản hồi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="text-center py-6 text-gray-600 mt-10">
-    © 2025 Nhóm Phát Triển Bookinton – Ứng Dụng Đặt Sân Cầu Lông
-  </footer>
+  <!-- BOOKING FLOW SECTION -->
+  <section class="booking-flow">
+    <h2 class="flow-title">Các bước đặt sân</h2>
 
-  <script>
-    AOS.init();
-  </script>
+    <div class="flow-wrapper">
+      <!-- Group 1 -->
+      <div class="flow-step center">
+        <img src="img/bookingflow1.png" alt="Search court" class="phone" />
+        <p class="desc">
+          Người chơi chọn khu vực, khung giờ mong muốn và dùng bộ lọc
+          để tìm nhanh các sân cầu lông còn trống gần mình.
+        </p>
+      </div>
+
+      <!-- Group 2 -->
+      <div class="flow-step center">
+        <img src="img/bookingflow2.png" alt="Court info" class="phone" />
+        <p class="desc">
+          Màn hình chi tiết hiển thị thông tin sân, giá theo giờ, tiện ích,
+          đánh giá và hình ảnh để người dùng dễ dàng so sánh và chọn sân phù hợp.
+        </p>
+      </div>
+
+      <!-- Group 3 -->
+      <div class="flow-step center">
+        <img src="img/bookingflow3.png" alt="Calendar select" class="phone" />
+        <p class="desc">
+          Giao diện lịch giúp người dùng chọn nhanh ngày và khung giờ chơi,
+          thấy rõ slot trống / full theo từng sân.
+        </p>
+      </div>
+    </div>
+
+    <div class="flow-wrapper second">
+      <!-- Group 4 -->
+      <div class="flow-step center">
+        <img src="img/bookingflow3.png" alt="Players & options" class="phone" />
+        <p class="desc">
+          Người dùng thêm số lượng người chơi, ghi chú trình độ, hoặc chia sẻ
+          booking cho bạn bè trong nhóm.
+        </p>
+      </div>
+
+      <!-- Group 5 -->
+      <div class="flow-step center">
+        <img src="img/bookingflow5.png" alt="Booking summary" class="phone" />
+        <p class="desc">
+          Màn hình tóm tắt hiển thị sân, thời gian, giá, chính sách hủy và
+          phương thức thanh toán, giúp người dùng kiểm tra lại trước khi xác nhận.
+        </p>
+      </div>
+
+      <!-- Group 6 -->
+      <div class="flow-step center">
+        <img src="img/bookingflow6.png" alt="Checkout payment" class="phone" />
+        <p class="desc">
+          Thanh toán được thực hiện an toàn qua VNPay (sandbox ở giai đoạn MVP),
+          đồng thời gửi xác nhận và nhắc lịch tự động trong ứng dụng.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOMER JOURNEY MAP -->
+  <section class="journey-map">
+    <h2>05. Hành trình khách hàng</h2>
+
+    <div class="journey-grid">
+      <!-- Cột 1 -->
+      <div class="journey-col">
+        <h3>Onboarding</h3>
+        <div class="journey-box">
+          <h4>Hành động ở bước này</h4>
+          <ul>
+            <li>Người dùng mở ứng dụng Bookinton lần đầu tiên</li>
+            <li>Xem qua phần giới thiệu về cách đặt sân và các lợi ích chính</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Vấn đề phát sinh</h4>
+          <ul>
+            <li>Người dùng có thể bỏ qua onboarding và bỏ lỡ những tính năng hữu ích</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tiêu cực có thể xảy ra</h4>
+          <ul>
+            <li>Ứng dụng có thể bị cảm nhận là phức tạp hoặc “giống các app đặt vé khác”</li>
+            <li>Thiếu nút kêu gọi hành động rõ ràng để bắt đầu đặt sân ngay</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tích cực có thể xảy ra</h4>
+          <ul>
+            <li>Người dùng hiểu rất nhanh rằng họ có thể đặt sân chỉ trong vài bước</li>
+            <li>Sẵn sàng cho phép ứng dụng sử dụng vị trí để gợi ý sân gần</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Ý tưởng và giải pháp</h4>
+          <ul>
+            <li>Onboarding tối giản, có nút “Bỏ qua” nhưng luôn giữ CTA “Đặt sân ngay”</li>
+            <li>Nhấn mạnh 2–3 lợi ích chính: slot thời gian thực, nhắc lịch, nhiều phương thức thanh toán</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cột 2 -->
+      <div class="journey-col">
+        <h3>Đăng ký</h3>
+        <div class="journey-box">
+          <h4>Hành động ở bước này</h4>
+          <ul>
+            <li>Người dùng đăng ký bằng email hoặc số điện thoại</li>
+            <li>Có thể chọn đăng nhập nhanh bằng Google / Apple ID</li>
+            <li>Xác thực tài khoản bằng mã OTP</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Vấn đề phát sinh</h4>
+          <ul>
+            <li>Người dùng dễ bỏ dở nếu form đăng ký quá dài hoặc yêu cầu quá nhiều thông tin</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tiêu cực có thể xảy ra</h4>
+          <ul>
+            <li>Quá nhiều trường thông tin đối với trải nghiệm lần đầu</li>
+            <li>Không biết còn bao nhiêu bước nữa để hoàn tất đăng ký</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tích cực có thể xảy ra</h4>
+          <ul>
+            <li>Đăng ký cực nhanh nếu dùng tài khoản mạng xã hội</li>
+            <li>Thông tin người chơi được lưu lại giúp những lần đặt sân sau nhanh hơn</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Ý tưởng và giải pháp</h4>
+          <ul>
+            <li>Cho phép đặt sân với tư cách khách (guest), chỉ yêu cầu tạo tài khoản ở bước thanh toán</li>
+            <li>Sử dụng autofill và form gọn, có thanh hiển thị tiến trình rõ ràng</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cột 3 -->
+      <div class="journey-col">
+        <h3>Tìm sân</h3>
+        <div class="journey-box">
+          <h4>Hành động ở bước này</h4>
+          <ul>
+            <li>Người dùng chọn khu vực, ngày và khung giờ mong muốn</li>
+            <li>Lọc theo khoảng giá, loại sân, số sân còn trống</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Vấn đề phát sinh</h4>
+          <ul>
+            <li>Kết quả có thể quá nhiều hoặc quá ít nếu bộ lọc chưa trực quan</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tiêu cực có thể xảy ra</h4>
+          <ul>
+            <li>Không rõ vì sao một số khung giờ không hiển thị</li>
+            <li>Khó quay lại để chỉnh lại tiêu chí tìm kiếm</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tích cực có thể xảy ra</h4>
+          <ul>
+            <li>Tìm được sân phù hợp chỉ sau 1–2 lần lọc</li>
+            <li>Có thể lưu khung giờ hoặc sân “ưa thích” cho lần sau</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Ý tưởng và giải pháp</h4>
+          <ul>
+            <li>Gợi ý sân phổ biến và lịch sử tìm kiếm gần đây</li>
+            <li>Hiển thị rõ lý do slot bị khóa (đã được đặt, ngoài giờ hoạt động…)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cột 4 -->
+      <div class="journey-col">
+        <h3>Duyệt sân</h3>
+        <div class="journey-box">
+          <h4>Hành động ở bước này</h4>
+          <ul>
+            <li>Xem danh sách các sân phù hợp với tiêu chí đã chọn</li>
+            <li>So sánh giá, khoảng cách, đánh giá và tiện ích</li>
+            <li>Mở chi tiết từng sân để xem ảnh và slot trống</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Vấn đề phát sinh</h4>
+          <ul>
+            <li>Khó so sánh nếu layout thiếu các thông tin quan trọng</li>
+            <li>Người dùng mơ hồ về chất lượng sân nếu không có đánh giá</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tiêu cực có thể xảy ra</h4>
+          <ul>
+            <li>Danh sách quá dày đặc, tạo cảm giác “chợ ứng dụng”</li>
+            <li>Ít hình ảnh thực tế, khó đánh giá chất lượng sân</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tích cực có thể xảy ra</h4>
+          <ul>
+            <li>So sánh sân cực nhanh với bố cục thông tin rõ ràng</li>
+            <li>Review và hình ảnh từ cộng đồng tạo cảm giác tin cậy</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Ý tưởng và giải pháp</h4>
+          <ul>
+            <li>Highlight các sân nổi bật, được đánh giá cao</li>
+            <li>Cho phép lọc theo “giá tốt”, “sân đẹp”, “đánh giá cao”</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cột 5 -->
+      <div class="journey-col">
+        <h3>Đặt sân</h3>
+        <div class="journey-box">
+          <h4>Hành động ở bước này</h4>
+          <ul>
+            <li>Chọn sân, khung giờ, số lượng người chơi</li>
+            <li>Chọn phương thức thanh toán</li>
+            <li>Nhận xác nhận đặt sân và nhắc lịch</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Vấn đề phát sinh</h4>
+          <ul>
+            <li>Lỗi thanh toán hoặc phản hồi chậm từ cổng thanh toán</li>
+            <li>Người dùng bối rối nếu không thấy booking ngay lập tức</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tiêu cực có thể xảy ra</h4>
+          <ul>
+            <li>Thiếu màn hình xác nhận rõ ràng sau khi đặt thành công</li>
+            <li>Không có cách xem lại hoặc chia sẻ booking cho bạn bè</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Khía cạnh tích cực có thể xảy ra</h4>
+          <ul>
+            <li>Quy trình thanh toán mượt mà, dễ hiểu</li>
+            <li>Nhắc lịch và thông báo rõ ràng, có thể thêm vào lịch cá nhân</li>
+          </ul>
+        </div>
+        <div class="journey-box">
+          <h4>Ý tưởng và giải pháp</h4>
+          <ul>
+            <li>Màn hình “Thành công” nổi bật với đầy đủ thông tin sân và thời gian</li>
+            <li>Nút “Chia sẻ cho team” và “Thêm vào lịch” ngay sau khi đặt xong</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WIREFRAMES SECTION -->
+  <section class="wireframes">
+    <h2>06. Wireframes</h2>
+
+    <div class="wireframes-content">
+      <div class="text-left">
+        <p>
+          <span class="blue">Low-fidelity</span> wireframes giúp team sắp xếp
+          lại các luồng đặt sân <span class="blue">cốt lõi</span> và thử nghiệm
+          bố cục màn hình <span class="blue">từ rất sớm</span> trong quá trình phát triển.
+        </p>
+      </div>
+
+      <div class="text-right">
+        <p>
+          Chúng tập trung vào <span class="blue">tính khả dụng</span>,
+          <span class="blue">nội dung, phân cấp</span> và các tương tác thiết yếu
+          mà không bị phân tán bởi lớp <span class="blue">visual</span> cuối cùng.
+        </p>
+      </div>
+
+      <!-- Background wireframes -->
+      <div class="wireframes-bg">
+        <img src="img/booking.png" alt="Wireframe 1" />
+        <img src="img/bookingflow1.png" alt="Wireframe 2" />
+        <img src="img/booking2.png" alt="Wireframe 3" />
+        <img src="img/bookingflow3.png" alt="Wireframe 4" />
+        <img src="img/bookingflow4.png" alt="Wireframe 5" />
+        <img src="img/bookingflow5.png" alt="Wireframe 6" />
+        <img src="img/booking.png" alt="Wireframe 7" />
+      </div>
+
+      <!-- Main phone center -->
+      <div class="main-phone">
+        <img src="img/booking.png" alt="Bookinton App" />
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN SYSTEM SECTION -->
+  <section class="design-system">
+    <!-- Header text -->
+    <div class="ds-header">
+      <h2>07 Hệ thống thiết kế</h2>
+      <p>
+        Một <span>bộ component, màu sắc và typography nhất quán</span>
+        được xây dựng để đảm bảo <span>tính đồng bộ hình ảnh</span> và tăng khả năng
+        <span>scalability</span> cho Bookinton. Design system hỗ trợ giao diện sạch,
+        hiện đại, thể thao trong khi vẫn giữ được <span>bản sắc thương hiệu</span>.
+      </p>
+    </div>
+
+    <!-- Top row: Typography / Colors / Icons -->
+    <div class="ds-top-row">
+      <!-- Typography card -->
+      <div class="ds-card ds-typo">
+        <div class="ds-typo-main">
+          <h3 class="ds-typo-heading">Typography</h3>
+
+          <p class="ds-font-sample ds-font-label">Segoe UI</p>
+          <p class="ds-font-sample ds-font-regular">Segoe UI</p>
+          <p class="ds-font-sample ds-font-bold">Segoe UI</p>
+          <p class="ds-font-sample ds-font-italic">Segoe UI</p>
+        </div>
+      </div>
+
+      <!-- Color palette card -->
+      <div class="ds-card ds-colors">
+        <h3 class="ds-color-heading">Colors</h3>
+
+        <div class="ds-color-row">
+          <div class="swatch" style="--swatch-color:#F5A623">
+            <span class="swatch-name">Primary</span>
+            <span class="swatch-code">#F5A623</span>
+          </div>
+          <div class="swatch" style="--swatch-color:#222222">
+            <span class="swatch-name">Secondary</span>
+            <span class="swatch-code">#222222</span>
+          </div>
+          <div class="swatch" style="--swatch-color:#4D4D4D">
+            <span class="swatch-name">Tertiary</span>
+            <span class="swatch-code">#4D4D4D</span>
+          </div>
+          <div class="swatch" style="--swatch-color:#CFCFCF">
+            <span class="swatch-name">Sub</span>
+            <span class="swatch-code">#CFCFCF</span>
+          </div>
+          <div class="swatch" style="--swatch-color:#E7E7E7">
+            <span class="swatch-name">Gray light</span>
+            <span class="swatch-code">#E7E7E7</span>
+          </div>
+        </div>
+
+        <div class="ds-color-row ds-color-row-bottom">
+          <div class="swatch" style="--swatch-color:#2F80FF">
+            <span class="swatch-name">Vibrant Blue</span>
+            <span class="swatch-code">#2F80FF</span>
+          </div>
+          <div class="swatch swatch-gradient">
+            <span class="swatch-name">Gradient</span>
+            <span class="swatch-code">Orange → Yellow</span>
+          </div>
+          <div class="swatch" style="--swatch-color:#0066FF">
+            <span class="swatch-name">Blue 1</span>
+            <span class="swatch-code">#0066FF</span>
+          </div>
+          <div class="swatch" style="--swatch-color:#4AA3FF">
+            <span class="swatch-name">Blue 2</span>
+            <span class="swatch-code">#4AA3FF</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Icons card giữ như cũ -->
+      <div class="ds-card ds-icons">
+        <div class="icon-grid">
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bottom row: components gallery (giữ layout, có thể coi là component Bookinton) -->
+    <div class="ds-bottom-row">
+      <!-- Card preview -->
+      <div class="ds-module">
+        <div class="ds-module-inner ticket-preview">
+          <div class="thumb"></div>
+          <div class="ticket-text">
+            <span class="tag">Court</span>
+            <p>Quận 7 – Nhà thi đấu A</p>
+            <span class="meta">Từ 120.000đ / giờ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons / CTA -->
+      <div class="ds-module">
+        <div class="ds-module-inner buttons-preview">
+          <div class="top-row">
+            <button class="ghost-btn">Clear filters</button>
+            <button class="primary-btn">Book now</button>
+          </div>
+
+          <div class="toggle-row">
+            <label class="toggle">
+              <input type="checkbox" checked />
+              <span class="toggle-slider"></span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="checkbox-row">
+            <label class="checkbox">
+              <input type="checkbox" checked />
+              <span class="checkbox-box"></span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" />
+              <span class="checkbox-box"></span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="opt" />
+              <span class="radio-dot"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trip card (giờ là booking card) -->
+      <div class="ds-module">
+        <div class="ds-module-inner trip-card">
+          <div class="trip-header">
+            <span class="trip-date">Thu, Mar 27</span>
+            <span class="trip-duration">20:00 – 22:00</span>
+          </div>
+          <div class="trip-times">
+            <div>
+              <span class="time">Court 3</span>
+              <span class="station">District 7</span>
+            </div>
+          </div>
+          <div class="trip-footer">
+            <span>Thanh toán VNPay</span>
+            <span class="price">240.000đ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs & list -->
+      <div class="ds-module">
+        <div class="ds-module-inner tabs-card">
+          <div class="bottom-nav">
+            <span class="nav-item active">Courts</span>
+            <span class="nav-item">Bookings</span>
+            <span class="nav-item">Support</span>
+            <span class="nav-item">Account</span>
+          </div>
+          <div class="segmented">
+            <button class="seg active">Upcoming</button>
+            <button class="seg">History</button>
+          </div>
+          <div class="list-row">
+            <div class="avatar-circle"></div>
+            <div class="list-text">
+              <span class="title">Nhà thi đấu A</span>
+              <span class="sub">Quận 7 · 3 sân · Parking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form fields -->
+      <div class="ds-module">
+        <div class="ds-module-inner form-preview">
+          <label class="field">
+            <span class="label">Email</span>
+            <input type="email" value="user87@email.com" />
+            <span class="helper">Dùng để nhận xác nhận đặt sân.</span>
+          </label>
+
+          <label class="field">
+            <span class="label">Tên hiển thị</span>
+            <input type="text" placeholder="Tên của bạn" />
+            <span class="helper">Hiện khi bạn viết đánh giá sân.</span>
+          </label>
+
+          <label class="field error">
+            <span class="label">Số điện thoại</span>
+            <input type="tel" placeholder="Nhập số điện thoại" />
+            <span class="helper">Trường này là bắt buộc.</span>
+          </label>
+
+          <label class="field">
+            <span class="label">Mật khẩu</span>
+            <input type="password" value="password" />
+            <span class="helper">Tối thiểu 8 ký tự, gồm số và chữ.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKETS MANAGEMENT SECTION (giờ là booking management) -->
+  <section class="tickets-3d">
+    <div class="tickets-3d-inner">
+
+      <div class="tickets-phone phone-left">
+        <div class="phone-screen"></div>
+      </div>
+
+      <div class="tickets-phone phone-right">
+        <div class="phone-screen"></div>
+      </div>
+
+      <!-- CHỮ 3D NGHIÊNG -->
+      <p class="tickets-text-3d">
+        Người dùng có thể dễ dàng<br>
+        <span>truy cập và quản lý</span><br>
+        Lịch sắp diễn ra<br>
+        và lịch sử <span>các lần đặt sân</span>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ACCOUNT OVERVIEW SECTION -->
+  <section class="account-overview">
+    <div class="ao-bg"></div>
+
+    <div class="ao-inner">
+      <h2 class="ao-title">QUẢN LÝ TÀI KHOẢN</h2>
+
+      <div class="ao-phones">
+        <!-- Phone 1 -->
+        <figure class="ao-phone ao-phone-1">
+          <img src="img/account3.png" alt="Profile screen">
+          <figcaption class="ao-caption">
+            <div class="ao-icon"></div>
+            <p>
+              Cung cấp quyền truy cập nhanh<br>
+              tới thông tin cá nhân và cài đặt tài khoản,<br>
+              giúp đặt sân nhanh.
+            </p>
+          </figcaption>
+        </figure>
+
+        <!-- Phone 2 -->
+        <figure class="ao-phone ao-phone-2">
+          <img src="img/account2.png" alt="Language screen">
+          <figcaption class="ao-caption">
+            <div class="ao-icon"></div>
+            <p>
+              Người dùng có thể chọn ngôn ngữ yêu thích<br>
+              để trải nghiệm Bookinton thoải mái
+            </p>
+          </figcaption>
+        </figure>
+
+        <!-- Phone 3 -->
+        <figure class="ao-phone ao-phone-3">
+          <img src="img/account.png" alt="Add new card screen">
+          <figcaption class="ao-caption">
+            <div class="ao-icon"></div>
+            <p>
+              Thêm thẻ thanh toán mới chỉ trong vài bước,<br>
+              giúp các lần đặt sân sau trở nên cực kỳ nhanh.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL / PROJECT CTA SECTION -->
+  <section class="project-cta">
+    <div class="project-cta-inner">
+      <div class="project-cta-kpi">
+        <span class="kpi-number">140+</span>
+        <span class="kpi-label">Màn hình</span>
+      </div>
+
+      <!-- logo / icon nếu muốn, có thể bỏ hẳn <div> này -->
+      <div class="project-cta-logo">
+        <!-- thay đường dẫn logo của bạn hoặc xóa cả <img> nếu không cần -->
+        <img src="img/logo.png" alt="Bookinton logo">
+      </div>
+
+      <h2 class="project-cta-title">BOOKINTON</h2>
+      <p class="project-cta-subtitle">
+        Đặt sân cầu lông ngay trong hôm nay!
+      </p>
+
+      <div class="project-cta-contacts">
+        <span>Telegram · @bookinton</span>
+        <span>Email · bookinton@gmail.com</span>
+      </div>
+    </div>
+  </section>
+
+
 </body>
+
 </html>
